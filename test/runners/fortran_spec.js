@@ -1,11 +1,21 @@
-// Dummy tests (directly taken from the "Getting Started" example in http://mochajs.org)
-// TODO: replace dummy tests with proper assertions
+'use strict';
 
-var assert = require('assert');
-describe('Array', function() {
-  describe('#indexOf()', function() {
-    it('should return -1 when the value is not present', function() {
-      assert.equal([1,2,3].indexOf(4), -1);
+const assert = require('assert'),
+  child_process = require('child_process');
+
+describe('GNU Fortran', function() {
+  describe('Basic Run', function() {
+    it('should handle basic code evaluation', function (done) {
+      child_process.exec('gfortran examples/solutionOnly/helloWorld.f95; ./a.out', function (error, stdout, stderr) {
+        assert.equal(stdout.trim(), "Hello World!");
+        done();
+      });
+    });
+    it('should support free-form programs and allow for line continuation', function (done) {
+      child_process.exec('gfortran examples/solutionOnly/freeForm.f95; ./a.out', function (error, stdout, stderr) {
+        assert.equal(stdout.trim(), "Free-form");
+        done();
+      });
     });
   });
 });

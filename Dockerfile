@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends gfortran
 RUN npm install --production
 
 # Copy files into Docker image
+COPY examples/solutionOnly/helloWorld.f95 examples/solutionOnly/
+COPY examples/solutionOnly/freeForm.f95 examples/solutionOnly/
 COPY test/runners/fortran_spec.js test/runners/
 
 # Run spec tests
