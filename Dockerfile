@@ -6,6 +6,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends gfortran
 
 # Install Nodejs
 RUN npm install --production
+# Install Chaijs
+RUN npm install chai
 
 # Copy files into Docker image
 COPY examples/solutionOnly/helloWorld.f95 examples/solutionOnly/

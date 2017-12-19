@@ -8,4 +8,74 @@ GNU Fortran is currently supported by the GCC 6.3.0 version of the `gfortran` Fo
 
 ## Testing Framework
 
+### CW-2
+
+The CW-2 testing framework is a TDD framework that is fully customized for use in Codewars.  It is simple, minimal and highly flexible.
+
+#### Spec Subroutines
+
 TODO
+
+#### Assertion Subroutines
+
+```fortran
+call assertEquals(expected, actual)
+```
+
+Directly compares two values for equality.  A number of commonly used data types are supported, including:
+
+- `integer` (the default integer type)
+- `integer(kind=8)`
+- `integer(kind=16)`
+- `logical` (default type only)
+- `character` (default type only, supports both single characters and strings)
+
+Note that: (1) both `expected` and `actual` must be of the same type when performing the assertion and (2) `assertEquals` for strings does more than simple equality comparison `==` - it also checks for the lengths of both strings to prevent false positives where a shorter string is padded to the right with whitespace characters and then considered equal with the longer string containing trailing whitespace characters.
+
+```fortran
+call assertEquals(expected, actual, msg)
+```
+
+Directly compares two values for equality, with the custom message `msg` (a string) specified upon failure.  The data types supported are identical to `assertEquals`, i.e. `integer`, `integer(kind=8)`, `integer(kind=16)`, `logical` and `character`.
+
+```fortran
+call assertNotEquals(unexpected, actual)
+```
+
+The inverse assertion of `assertEquals`.  The data types supported are identical to `assertEquals`.
+
+```fortran
+call assertNotEquals(unexpected, actual, msg)
+```
+
+The inverse assertion of `assertEquals` with the custom message `msg` (a string) displayed upon failure.  The data types supported are identical to `assertEquals`.
+
+```fortran
+call assertWithinTolerance(expected, actual, epsilon)
+```
+
+Compares two values for approximate equality within an absolute tolerance value `epsilon`.  This assertion method supports the following data types:
+
+- `real` (default, single-precision floating point values)
+- `real(kind=8)`
+- `complex` (default type only)
+
+The data type for `epsilon` varies depending on what `expected` and `actual` are - for `real` and `complex`, `epsilon` should be `real` while for `real(kind=8)` (double-precision values), `epsilon` should also be a double-precision value.
+
+```fortran
+call assertWithinTolerance(expected, actual, epsilon, msg)
+```
+
+Same as above except a custom message `msg` (a string) is shown upon failure.
+
+```fortran
+call assertNotWithinTolerance(unexpected, actual, epsilon)
+```
+
+Inverse assertion of `assertWithinTolerance`
+
+```fortran
+call assertNotWithinTolerance(unexpected, actual, epsilon, msg)
+```
+
+Inverse assertion of `assertWithinTolerance` with custom message `msg` displayed upon failure.
