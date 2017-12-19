@@ -14,7 +14,23 @@ The CW-2 testing framework is a TDD framework that is fully customized for use i
 
 #### Spec Subroutines
 
-TODO
+```fortran
+call describe(msg)
+```
+
+Begins a `describe` context using the message `msg` provided.  A `describe` context is useful in grouping all of the assertions used to test a particular function or module.  After all related assertions are executed, it is best practice to `call endContext()` to properly close the current `describe` context in order to avoid unintentional `describe` nesting.
+
+```fortran
+call it(msg)
+```
+
+Begins an `it` context using the message `msg` provided.  An `it` context is useful in grouping closely related assertions which test for the same feature/aspect of a given function or module.  `it` contexts should generally reside within `describe` contexts.  After the related group of assertions are executed, it is best practice to `call endContext()` to properly close the current `it` context in order to avoid unintentional `it` (and `describe`) nesting.
+
+```fortran
+call endContext()
+```
+
+A subroutine which does not accept any arguments and simply ends the most recently started context.  It should *never* be invoked *before* a `describe` and/or `it` context.
 
 #### Assertion Subroutines
 

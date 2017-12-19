@@ -45,6 +45,20 @@ module CW2
       complexInvAssertWithMsg
   end interface assertNotWithinTolerance
   contains
+    subroutine describe(msg)
+      implicit none
+      character(len=*) :: msg
+      print *, "<DESCRIBE::>" // msg
+    end subroutine describe
+    subroutine it(msg)
+      implicit none
+      character(len=*) :: msg
+      print *, "<IT::>" // msg
+    end subroutine it
+    subroutine endContext()
+      implicit none
+      print *, "<COMPLETEDIN::>"
+    end subroutine endContext
     subroutine assertInt32Eq(expected, actual)
       implicit none
       integer :: expected, actual

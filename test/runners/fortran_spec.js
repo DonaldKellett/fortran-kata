@@ -19,6 +19,11 @@ describe('GNU Fortran', function () {
     });
   });
   describe('Test Integration (CW-2)', function () {
-    // TODO
+    it('should have working spec methods', function (done) {
+      child_process.exec('gfortran -c frameworks/fortran/cw-2.f95; gfortran examples/testIntegration/snippets/specMethods.f95 cw-2.o; ./a.out', function (error, stdout, stderr) {
+        expect(stdout).to.equal(" <DESCRIBE::>The `describe` context of the CW-2 testing framework\n <IT::>should work properly for the first time\n Hello World\n <COMPLETEDIN::>\n <IT::>should work properly again after `it` is called a second time\n Testing testing ... \n <COMPLETEDIN::>\n <COMPLETEDIN::>\n <DESCRIBE::>`describe` should work on its own\n All OK!\n <COMPLETEDIN::>\n");
+        done();
+      });
+    });
   });
 });

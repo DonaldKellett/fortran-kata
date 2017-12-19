@@ -4,15 +4,15 @@ FROM codewars/base-runner
 # Install the `gfortran` GNU Fortran compiler
 RUN apt-get update && apt-get install -y --no-install-recommends gfortran
 
-# Install Nodejs
+# Install Nodejs and related components
 RUN npm install --production
-# Install Chaijs
 RUN npm install chai
 
 # Copy files into Docker image
-COPY examples/solutionOnly/helloWorld.f95 examples/solutionOnly/
-COPY examples/solutionOnly/freeForm.f95 examples/solutionOnly/
+COPY examples/solutionOnly/*.f95 examples/solutionOnly/
 COPY test/runners/fortran_spec.js test/runners/
+COPY frameworks/fortran/cw-2.f95 frameworks/fortran/
+COPY examples/testIntegration/snippets/*.f95 examples/testIntegration/snippets/
 
 # Run spec tests
 RUN mocha test/runners/fortran_spec.js
