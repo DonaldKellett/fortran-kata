@@ -1,6 +1,7 @@
 program Kata
   implicit none
-  print *, "Free" // &
+  print "(A9)", &
+  "Free" // &
   "-" // &
   "form"
 end program Kata

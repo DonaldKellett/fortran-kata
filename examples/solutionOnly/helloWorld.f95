@@ -1,4 +1,4 @@
 program Kata
   implicit none
-  print *, "Hello World!"
+  print "(A12)", "Hello World!"
 end program Kata

@@ -48,16 +48,20 @@ module CW2
     subroutine describe(msg)
       implicit none
       character(len=*) :: msg
-      print *, "<DESCRIBE::>" // msg
+      character(len=100) :: formatSpecifier
+      write(formatSpecifier, "(A2, I0, A1)") "(A", 12 + len(msg), ")"
+      print formatSpecifier, "<DESCRIBE::>" // msg
     end subroutine describe
     subroutine it(msg)
       implicit none
       character(len=*) :: msg
-      print *, "<IT::>" // msg
+      character(len=100) :: formatSpecifier
+      write(formatSpecifier, "(A2, I0, A1)") "(A", 6 + len(msg), ")"
+      print formatSpecifier, "<IT::>" // msg
     end subroutine it
     subroutine endContext()
       implicit none
-      print *, "<COMPLETEDIN::>"
+      print "(A15)", "<COMPLETEDIN::>"
     end subroutine endContext
     subroutine assertInt32Eq(expected, actual)
       implicit none
