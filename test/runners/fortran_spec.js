@@ -25,5 +25,11 @@ describe('GNU Fortran', function () {
         done();
       });
     });
+    it('should have a working assertEquals for signed 32-bit integers, both with and without a custom failure message', function (done) {
+      child_process.exec('gfortran -c frameworks/fortran/cw-2.f95; gfortran examples/testIntegration/snippets/int32Equals.f95 cw-2.o; ./a.out', function (error, stdout, stderr) {
+        expect(stdout).to.equal("<PASSED::>Test Passed - Value == 2147483647\n<FAILED::>Expected: 2147483647, instead got: 32767\n<PASSED::>Test Passed - Value == 2147483647\n<FAILED::>Try again - what is the largest possible value of a signed 32-bit integer? - Expected: 2147483647, instead got: 32767\n");
+        done();
+      });
+    });
   });
 });

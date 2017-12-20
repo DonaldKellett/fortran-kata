@@ -66,13 +66,23 @@ module CW2
     subroutine assertInt32Eq(expected, actual)
       implicit none
       integer :: expected, actual
-      ! TODO
+      if (actual == expected) then
+        print "(A33, I0)", "<PASSED::>Test Passed - Value == ", expected
+      else
+        print "(A20, I0, A15, I0)", "<FAILED::>Expected: ", expected, ", instead got: ", actual
+      end if
     end subroutine assertInt32Eq
     subroutine assertInt32EqWithMsg(expected, actual, msg)
       implicit none
       integer :: expected, actual
       character(len=*) :: msg
-      ! TODO
+      character(len=100) :: n
+      if (actual == expected) then
+        print "(A33, I0)", "<PASSED::>Test Passed - Value == ", expected
+      else
+        write(n, "(I0)") len(msg)
+        print "(A10, A" // n // ", A13, I0, A15, I0)", "<FAILED::>", msg, " - Expected: ", expected, ", instead got: ", actual
+      end if
     end subroutine assertInt32EqWithMsg
     subroutine assertInt64Eq(expected, actual)
       implicit none
