@@ -43,5 +43,11 @@ describe('GNU Fortran', function () {
         done();
       });
     });
+    it('should have a working assertEquals for default logical values, both with and without a custom failure message', function (done) {
+      child_process.exec('gfortran -c frameworks/fortran/cw-2.f95; gfortran examples/testIntegration/snippets/boolEquals.f95 cw-2.o; ./a.out', function (error, stdout, stderr) {
+        expect(stdout).to.equal("<PASSED::>Test Passed - Value == T\n<FAILED::>Expected: T, instead got: F\n<FAILED::>Expected: F, instead got: T\n<PASSED::>Test Passed - Value == F\n<PASSED::>Test Passed - Value == T\n<FAILED::>Incorrect logical value returned - Expected: T, instead got: F\n<FAILED::>Incorrect logical value returned - Expected: F, instead got: T\n<PASSED::>Test Passed - Value == F\n");
+        done();
+      });
+    });
   });
 });

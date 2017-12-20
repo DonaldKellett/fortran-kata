@@ -129,13 +129,23 @@ module CW2
     subroutine assertBoolEq(expected, actual)
       implicit none
       logical :: expected, actual
-      ! TODO
+      if (actual .eqv. expected) then
+        print "(A33, L1)", "<PASSED::>Test Passed - Value == ", expected
+      else
+        print "(A20, L1, A15, L1)", "<FAILED::>Expected: ", expected, ", instead got: ", actual
+      end if
     end subroutine assertBoolEq
     subroutine assertBoolEqWithMsg(expected, actual, msg)
       implicit none
       logical :: expected, actual
       character(len=*) :: msg
-      ! TODO
+      character(len=100) :: n
+      if (actual .eqv. expected) then
+        print "(A33, L1)", "<PASSED::>Test Passed - Value == ", expected
+      else
+        write(n, "(I0)") len(msg)
+        print "(A10, A" // n // ", A13, L1, A15, L1)", "<FAILED::>", msg, " - Expected: ", expected, ", instead got: ", actual
+      end if
     end subroutine assertBoolEqWithMsg
     subroutine assertStrEq(expected, actual)
       implicit none
