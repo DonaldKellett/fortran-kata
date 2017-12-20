@@ -150,12 +150,28 @@ module CW2
     subroutine assertStrEq(expected, actual)
       implicit none
       character(len=*) :: expected, actual
-      ! TODO
+      character(len=100) :: n, m
+      write(n, "(I0)") len(expected)
+      if (actual == expected .and. len(actual) == len(expected)) then
+        print "(A33, A" // n // ")", "<PASSED::>Test Passed - Value == ", expected
+      else
+        write(m, "(I0)") len(actual)
+        print "(A20, A" // n // ", A15, A" // m // ")", "<FAILED::>Expected: ", expected, ", instead got: ", actual
+      end if
     end subroutine assertStrEq
     subroutine assertStrEqWithMsg(expected, actual, msg)
       implicit none
       character(len=*) :: expected, actual, msg
-      ! TODO
+      character(len=100) :: n, m, o
+      write(n, "(I0)") len(expected)
+      if (actual == expected .and. len(actual) == len(expected)) then
+        print "(A33, A" // n // ")", "<PASSED::>Test Passed - Value == ", expected
+      else
+        write(m, "(I0)") len(actual)
+        write(o, "(I0)") len(msg)
+        print "(A10, A" // o // ", A13, A" // n // ", A15, A" // m // ")", &
+        "<FAILED::>", msg, " - Expected: ", expected, ", instead got: ", actual
+      end if
     end subroutine assertStrEqWithMsg
     subroutine assertInt32NEq(unexpected, actual)
       implicit none

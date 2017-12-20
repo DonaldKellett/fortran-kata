@@ -49,5 +49,11 @@ describe('GNU Fortran', function () {
         done();
       });
     });
+    it('should have a working assertEquals for default character strings, both with and without a custom failure message', function (done) {
+      child_process.exec('gfortran -c frameworks/fortran/cw-2.f95; gfortran examples/testIntegration/snippets/strEquals.f95 cw-2.o; ./a.out', function (error, stdout, stderr) {
+        expect(stdout).to.equal("<PASSED::>Test Passed - Value == Hello World!\n<FAILED::>Expected: Hello World!, instead got: Goodbye World!\n<FAILED::>Expected: Hello World!, instead got: Hello       \n<FAILED::>Expected: Hello World!, instead got: Hello World!   \n<PASSED::>Test Passed - Value == Hello World!\n<FAILED::>Check your returned string ;) - Expected: Hello World!, instead got: Goodbye World!\n<FAILED::>Check your returned string ;) - Expected: Hello World!, instead got: Hello       \n<FAILED::>Check your returned string ;) - Expected: Hello World!, instead got: Hello World!   \n");
+        done();
+      });
+    });
   });
 });
