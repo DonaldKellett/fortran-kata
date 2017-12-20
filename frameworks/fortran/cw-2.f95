@@ -176,35 +176,65 @@ module CW2
     subroutine assertInt32NEq(unexpected, actual)
       implicit none
       integer :: unexpected, actual
-      ! TODO
+      if (actual /= unexpected) then
+        print "(A33, I0)", "<PASSED::>Test Passed - Value /= ", unexpected
+      else
+        print "(A40, I0)", "<FAILED::>Expected result to not equal: ", unexpected
+      end if
     end subroutine assertInt32NEq
     subroutine assertInt32NEqWithMsg(unexpected, actual, msg)
       implicit none
       integer :: unexpected, actual
       character(len=*) :: msg
-      ! TODO
+      character(len=100) :: n
+      if (actual /= unexpected) then
+        print "(A33, I0)", "<PASSED::>Test Passed - Value /= ", unexpected
+      else
+        write(n, "(I0)") len(msg)
+        print "(A10, A" // n // ", A33, I0)", "<FAILED::>", msg, " - Expected result to not equal: ", unexpected
+      end if
     end subroutine assertInt32NEqWithMsg
     subroutine assertInt64NEq(unexpected, actual)
       implicit none
       integer(kind=8) :: unexpected, actual
-      ! TODO
+      if (actual /= unexpected) then
+        print "(A33, I0)", "<PASSED::>Test Passed - Value /= ", unexpected
+      else
+        print "(A40, I0)", "<FAILED::>Expected result to not equal: ", unexpected
+      end if
     end subroutine assertInt64NEq
     subroutine assertInt64NEqWithMsg(unexpected, actual, msg)
       implicit none
       integer(kind=8) :: unexpected, actual
       character(len=*) :: msg
-      ! TODO
+      character(len=100) :: n
+      if (actual /= unexpected) then
+        print "(A33, I0)", "<PASSED::>Test Passed - Value /= ", unexpected
+      else
+        write(n, "(I0)") len(msg)
+        print "(A10, A" // n // ", A33, I0)", "<FAILED::>", msg, " - Expected result to not equal: ", unexpected
+      end if
     end subroutine assertInt64NEqWithMsg
     subroutine assertInt128NEq(unexpected, actual)
       implicit none
       integer(kind=16) :: unexpected, actual
-      ! TODO
+      if (actual /= unexpected) then
+        print "(A33, I0)", "<PASSED::>Test Passed - Value /= ", unexpected
+      else
+        print "(A40, I0)", "<FAILED::>Expected result to not equal: ", unexpected
+      end if
     end subroutine assertInt128NEq
     subroutine assertInt128NEqWithMsg(unexpected, actual, msg)
       implicit none
       integer(kind=16) :: unexpected, actual
       character(len=*) :: msg
-      ! TODO
+      character(len=100) :: n
+      if (actual /= unexpected) then
+        print "(A33, I0)", "<PASSED::>Test Passed - Value /= ", unexpected
+      else
+        write(n, "(I0)") len(msg)
+        print "(A10, A" // n // ", A33, I0)", "<FAILED::>", msg, " - Expected result to not equal: ", unexpected
+      end if
     end subroutine assertInt128NEqWithMsg
     subroutine assertBoolNEq(unexpected, actual)
       implicit none

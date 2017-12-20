@@ -55,5 +55,23 @@ describe('GNU Fortran', function () {
         done();
       });
     });
+    it('should have a working assertNotEquals for default integers, both with and without a custom failure message', function (done) {
+      child_process.exec('gfortran -c frameworks/fortran/cw-2.f95; gfortran examples/testIntegration/snippets/int32NotEquals.f95 cw-2.o; ./a.out', function (error, stdout, stderr) {
+        expect(stdout).to.equal("<PASSED::>Test Passed - Value /= 2147483647\n<FAILED::>Expected result to not equal: 2147483647\n<PASSED::>Test Passed - Value /= 2147483647\n<FAILED::>You should return anything but this number - Expected result to not equal: 2147483647\n");
+        done();
+      });
+    });
+    it('should have a working assertNotEquals for 64-bit integers, both with and without a custom failure message', function (done) {
+      child_process.exec('gfortran -c frameworks/fortran/cw-2.f95; gfortran examples/testIntegration/snippets/int64NotEquals.f95 cw-2.o; ./a.out', function (error, stdout, stderr) {
+        expect(stdout).to.equal("<PASSED::>Test Passed - Value /= 9223372036854775807\n<FAILED::>Expected result to not equal: 9223372036854775807\n<PASSED::>Test Passed - Value /= 9223372036854775807\n<FAILED::>Return something else - Expected result to not equal: 9223372036854775807\n");
+        done();
+      });
+    });
+    it('should have a working assertNotEquals for 128-bit integers, both with and without a custom failure message', function (done) {
+      child_process.exec('gfortran -c frameworks/fortran/cw-2.f95; gfortran examples/testIntegration/snippets/int128NotEquals.f95 cw-2.o; ./a.out', function (error, stdout, stderr) {
+        expect(stdout).to.equal("<PASSED::>Test Passed - Value /= 170141183460469231731687303715884105727\n<FAILED::>Expected result to not equal: 170141183460469231731687303715884105727\n<PASSED::>Test Passed - Value /= 170141183460469231731687303715884105727\n<FAILED::>Nooo ... not this number ... - Expected result to not equal: 170141183460469231731687303715884105727\n");
+        done();
+      });
+    });
   });
 });
