@@ -87,24 +87,44 @@ module CW2
     subroutine assertInt64Eq(expected, actual)
       implicit none
       integer(kind=8) :: expected, actual
-      ! TODO
+      if (actual == expected) then
+        print "(A33, I0)", "<PASSED::>Test Passed - Value == ", expected
+      else
+        print "(A20, I0, A15, I0)", "<FAILED::>Expected: ", expected, ", instead got: ", actual
+      end if
     end subroutine assertInt64Eq
     subroutine assertInt64EqWithMsg(expected, actual, msg)
       implicit none
       integer(kind=8) :: expected, actual
       character(len=*) :: msg
-      ! TODO
+      character(len=100) :: n
+      if (actual == expected) then
+        print "(A33, I0)", "<PASSED::>Test Passed - Value == ", expected
+      else
+        write(n, "(I0)") len(msg)
+        print "(A10, A" // n // ", A13, I0, A15, I0)", "<FAILED::>", msg, " - Expected: ", expected, ", instead got: ", actual
+      end if
     end subroutine assertInt64EqWithMsg
     subroutine assertInt128Eq(expected, actual)
       implicit none
       integer(kind=16) :: expected, actual
-      ! TODO
+      if (actual == expected) then
+        print "(A33, I0)", "<PASSED::>Test Passed - Value == ", expected
+      else
+        print "(A20, I0, A15, I0)", "<FAILED::>Expected: ", expected, ", instead got: ", actual
+      end if
     end subroutine assertInt128Eq
     subroutine assertInt128EqWithMsg(expected, actual, msg)
       implicit none
       integer(kind=16) :: expected, actual
       character(len=*) :: msg
-      ! TODO
+      character(len=100) :: n
+      if (actual == expected) then
+        print "(A33, I0)", "<PASSED::>Test Passed - Value == ", expected
+      else
+        write(n, "(I0)") len(msg)
+        print "(A10, A" // n // ", A13, I0, A15, I0)", "<FAILED::>", msg, " - Expected: ", expected, ", instead got: ", actual
+      end if
     end subroutine assertInt128EqWithMsg
     subroutine assertBoolEq(expected, actual)
       implicit none
