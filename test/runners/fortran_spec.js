@@ -73,5 +73,17 @@ describe('GNU Fortran', function () {
         done();
       });
     });
+    it('should have a working assertNotEquals for default logical values, both with and without a custom failure message', function (done) {
+      child_process.exec('gfortran -c frameworks/fortran/cw-2.f95; gfortran examples/testIntegration/snippets/boolNotEquals.f95 cw-2.o; ./a.out', function (error, stdout, stderr) {
+        expect(stdout).to.equal("<PASSED::>Test Passed - Value /= T\n<PASSED::>Test Passed - Value /= F\n<FAILED::>Expected result to not equal: T\n<FAILED::>Expected result to not equal: F\n<PASSED::>Test Passed - Value /= T\n<PASSED::>Test Passed - Value /= F\n<FAILED::>Wrong logical value - Expected result to not equal: T\n<FAILED::>Wrong logical value - Expected result to not equal: F\n");
+        done();
+      });
+    });
+    it('should have a working assertNotEquals for default character strings, both with and without a custom failure message', function (done) {
+      child_process.exec('gfortran -c frameworks/fortran/cw-2.f95; gfortran examples/testIntegration/snippets/strNotEquals.f95 cw-2.o; ./a.out', function (error, stdout, stderr) {
+        expect(stdout).to.equal("<FAILED::>Expected result to not equal: Hello World!\n<PASSED::>Test Passed - Value /= Hello World!\n<PASSED::>Test Passed - Value /= Hello World!\n<PASSED::>Test Passed - Value /= Hello World!\n<FAILED::>Not this character string! - Expected result to not equal: Hello World!\n<PASSED::>Test Passed - Value /= Hello World!\n<PASSED::>Test Passed - Value /= Hello World!\n<PASSED::>Test Passed - Value /= Hello World!\n");
+        done();
+      });
+    });
   });
 });

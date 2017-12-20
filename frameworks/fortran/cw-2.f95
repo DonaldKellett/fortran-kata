@@ -239,23 +239,46 @@ module CW2
     subroutine assertBoolNEq(unexpected, actual)
       implicit none
       logical :: unexpected, actual
-      ! TODO
+      if (actual .neqv. unexpected) then
+        print "(A33, L1)", "<PASSED::>Test Passed - Value /= ", unexpected
+      else
+        print "(A40, L1)", "<FAILED::>Expected result to not equal: ", unexpected
+      end if
     end subroutine assertBoolNEq
     subroutine assertBoolNEqWithMsg(unexpected, actual, msg)
       implicit none
       logical :: unexpected, actual
       character(len=*) :: msg
-      ! TODO
+      character(len=100) :: n
+      if (actual .neqv. unexpected) then
+        print "(A33, L1)", "<PASSED::>Test Passed - Value /= ", unexpected
+      else
+        write(n, "(I0)") len(msg)
+        print "(A10, A" // n // ", A33, L1)", "<FAILED::>", msg, " - Expected result to not equal: ", unexpected
+      end if
     end subroutine assertBoolNEqWithMsg
     subroutine assertStrNEq(unexpected, actual)
       implicit none
       character(len=*) :: unexpected, actual
-      ! TODO
+      character(len=100) :: n
+      write(n, "(I0)") len(unexpected)
+      if (actual /= unexpected .or. len(actual) /= len(unexpected)) then
+        print "(A33, A" // n // ")", "<PASSED::>Test Passed - Value /= ", unexpected
+      else
+        print "(A40, A" // n // ")", "<FAILED::>Expected result to not equal: ", unexpected
+      end if
     end subroutine assertStrNEq
     subroutine assertStrNEqWithMsg(unexpected, actual, msg)
       implicit none
       character(len=*) :: unexpected, actual, msg
-      ! TODO
+      character(len=100) :: n, o
+      write(n, "(I0)") len(unexpected)
+      if (actual /= unexpected .or. len(actual) /= len(unexpected)) then
+        print "(A33, A" // n // ")", "<PASSED::>Test Passed - Value /= ", unexpected
+      else
+        write(o, "(I0)") len(msg)
+        print "(A10, A" // o // ", A33, A" // n // ")", "<FAILED::>", msg, " - Expected result to not equal: ", unexpected
+      end if
     end subroutine assertStrNEqWithMsg
     subroutine floatAssert(expected, actual, epsilon)
       implicit none
