@@ -85,5 +85,11 @@ describe('GNU Fortran', function () {
         done();
       });
     });
+    it('should have a working assertWithinTolerance for default real values, both with and without a custom failure message', function (done) {
+      child_process.exec('gfortran -c frameworks/fortran/cw-2.f95; gfortran examples/testIntegration/snippets/floatAssert.f95 cw-2.o; ./a.out', function (error, stdout, stderr) {
+        expect(stdout).to.equal("<PASSED::>Test Passed - Value == 379.399994 within range 0.001000\n<PASSED::>Test Passed - Value == 379.399994 within range 0.001000\n<FAILED::>Failed asserting that -379.399994 matches expected value 379.399994 within range 0.001000\n<FAILED::>Failed asserting that 380.100006 matches expected value 379.399994 within range 0.001000\n<PASSED::>Test Passed - Value == 379.399994 within range 0.001000\n<PASSED::>Test Passed - Value == 379.399994 within range 0.001000\n<FAILED::>Wrong float - Failed asserting that -379.399994 matches expected value 379.399994 within range 0.001000\n<FAILED::>Wrong float - Failed asserting that 380.100006 matches expected value 379.399994 within range 0.001000\n");
+        done();
+      });
+    });
   });
 });
