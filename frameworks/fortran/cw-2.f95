@@ -485,13 +485,48 @@ module CW2
     subroutine floatInvAssert(unexpected, actual, epsilon)
       implicit none
       real :: unexpected, actual, epsilon
-      ! TODO
+      character(len=100) :: unexpW, epsW
+      if (unexpected == 0.0) then
+        write(unexpW, "(I0)") 8
+      else
+        write(unexpW, "(I0)") 8 + merge(0, 1, unexpected >= 0) + merge(floor(log10(abs(unexpected))), 0, abs(unexpected) >= 1)
+      end if
+      if (epsilon == 0.0) then
+        write(epsW, "(I0)") 8
+      else
+        write(epsW, "(I0)") 8 + merge(0, 1, epsilon >= 0) + merge(floor(log10(abs(epsilon))), 0, abs(epsilon) >= 1)
+      end if
+      if (abs(actual - unexpected) > epsilon) then
+        print "(A33, F" // unexpW // ".6, A18, F" // epsW // ".6, A1)", &
+        "<PASSED::>Test Passed - Value /= ", unexpected, " (rejected range: ", epsilon, ")"
+      else
+        print "(A45, F" // unexpW // ".6, A14, F" // epsW // ".6)", &
+        "<FAILED::>Result should not be equivalent to ", unexpected, " within range ", epsilon
+      end if
     end subroutine floatInvAssert
     subroutine floatInvAssertWithMsg(unexpected, actual, epsilon, msg)
       implicit none
       real :: unexpected, actual, epsilon
       character(len=*) :: msg
-      ! TODO
+      character(len=100) :: unexpW, epsW, n
+      if (unexpected == 0.0) then
+        write(unexpW, "(I0)") 8
+      else
+        write(unexpW, "(I0)") 8 + merge(0, 1, unexpected >= 0) + merge(floor(log10(abs(unexpected))), 0, abs(unexpected) >= 1)
+      end if
+      if (epsilon == 0.0) then
+        write(epsW, "(I0)") 8
+      else
+        write(epsW, "(I0)") 8 + merge(0, 1, epsilon >= 0) + merge(floor(log10(abs(epsilon))), 0, abs(epsilon) >= 1)
+      end if
+      if (abs(actual - unexpected) > epsilon) then
+        print "(A33, F" // unexpW // ".6, A18, F" // epsW // ".6, A1)", &
+        "<PASSED::>Test Passed - Value /= ", unexpected, " (rejected range: ", epsilon, ")"
+      else
+        write(n, "(I0)") len(msg)
+        print "(A10, A" // n // ", A38, F" // unexpW // ".6, A14, F" // epsW // ".6)", &
+        "<FAILED::>", msg, " - Result should not be equivalent to ", unexpected, " within range ", epsilon
+      end if
     end subroutine floatInvAssertWithMsg
     subroutine doubleInvAssert(unexpected, actual, epsilon)
       implicit none

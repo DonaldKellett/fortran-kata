@@ -103,5 +103,11 @@ describe('GNU Fortran', function () {
         done();
       });
     });
+    it('should have a working assertNotWithinTolerance for default real values, both with and without a custom failure message', function (done) {
+      child_process.exec('gfortran -c frameworks/fortran/cw-2.f95; gfortran examples/testIntegration/snippets/floatInvAssert.f95 cw-2.o; ./a.out', function (error, stdout, stderr) {
+        expect(stdout).to.equal("<FAILED::>Result should not be equivalent to 379.399994 within range 0.001000\n<FAILED::>Result should not be equivalent to 379.399994 within range 0.001000\n<PASSED::>Test Passed - Value /= 379.399994 (rejected range: 0.001000)\n<PASSED::>Test Passed - Value /= 379.399994 (rejected range: 0.001000)\n<FAILED::>Wrong float - Result should not be equivalent to 379.399994 within range 0.001000\n<FAILED::>Wrong float - Result should not be equivalent to 379.399994 within range 0.001000\n<PASSED::>Test Passed - Value /= 379.399994 (rejected range: 0.001000)\n<PASSED::>Test Passed - Value /= 379.399994 (rejected range: 0.001000)\n<FAILED::>Result should not be equivalent to 0.000000 within range 0.100000\n<FAILED::>Wrong float - try again - Result should not be equivalent to 0.000000 within range 0.100000\n<PASSED::>Test Passed - Value /= 0.000000 (rejected range: 0.100000)\n<PASSED::>Test Passed - Value /= 0.000000 (rejected range: 0.100000)\n");
+        done();
+      });
+    });
   });
 });
