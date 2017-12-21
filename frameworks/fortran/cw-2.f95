@@ -339,13 +339,58 @@ module CW2
     subroutine doubleAssert(expected, actual, epsilon)
       implicit none
       real(kind=8) :: expected, actual, epsilon
-      ! TODO
+      character(len=100) :: expW, epsW, actW
+      if (expected == 0.0) then
+        write(expW, "(I0)") 17
+      else
+        write(expW, "(I0)") 17 + merge(0, 1, expected >= 0) + merge(floor(log10(abs(expected))), 0, abs(expected) >= 1)
+      end if
+      if (epsilon == 0.0) then
+        write(epsW, "(I0)") 17
+      else
+        write(epsW, "(I0)") 17 + merge(0, 1, epsilon >= 0) + merge(floor(log10(abs(epsilon))), 0, abs(epsilon) >= 1)
+      end if
+      if (abs(actual - expected) <= epsilon) then
+        print "(A33, F" // expW // ".15, A14, F" // epsW // ".15)", &
+        "<PASSED::>Test Passed - Value == ", expected, " within range ", epsilon
+      else
+        if (actual == 0.0) then
+          write(actW, "(I0)") 17
+        else
+          write(actW, "(I0)") 17 + merge(0, 1, actual >= 0) + merge(floor(log10(abs(actual))), 0, abs(actual) >= 1)
+        end if
+        print "(A32, F" // actW // ".15, A24, F" // expW // ".15, A14, F" // epsW // ".15)", &
+        "<FAILED::>Failed asserting that ", actual, " matches expected value ", expected, " within range ", epsilon
+      end if
     end subroutine doubleAssert
     subroutine doubleAssertWithMsg(expected, actual, epsilon, msg)
       implicit none
       real(kind=8) :: expected, actual, epsilon
       character(len=*) :: msg
-      ! TODO
+      character(len=100) :: expW, epsW, actW, n
+      if (expected == 0.0) then
+        write(expW, "(I0)") 17
+      else
+        write(expW, "(I0)") 17 + merge(0, 1, expected >= 0) + merge(floor(log10(abs(expected))), 0, abs(expected) >= 1)
+      end if
+      if (epsilon == 0.0) then
+        write(epsW, "(I0)") 17
+      else
+        write(epsW, "(I0)") 17 + merge(0, 1, epsilon >= 0) + merge(floor(log10(abs(epsilon))), 0, abs(epsilon) >= 1)
+      end if
+      if (abs(actual - expected) <= epsilon) then
+        print "(A33, F" // expW // ".15, A14, F" // epsW // ".15)", &
+        "<PASSED::>Test Passed - Value == ", expected, " within range ", epsilon
+      else
+        if (actual == 0.0) then
+          write(actW, "(I0)") 17
+        else
+          write(actW, "(I0)") 17 + merge(0, 1, actual >= 0) + merge(floor(log10(abs(actual))), 0, abs(actual) >= 1)
+        end if
+        write(n, "(I0)") len(msg)
+        print "(A10, A" // n // ", A25, F" // actW // ".15, A24, F" // expW // ".15, A14, F" // epsW // ".15)", &
+        "<FAILED::>", msg, " - Failed asserting that ", actual, " matches expected value ", expected, " within range ", epsilon
+      end if
     end subroutine doubleAssertWithMsg
     subroutine complexAssert(expected, actual, epsilon)
       implicit none
