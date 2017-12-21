@@ -396,14 +396,91 @@ module CW2
       implicit none
       complex :: expected, actual
       real :: epsilon
-      ! TODO
+      character(len=100) :: expRealPartW, expImagPartW, epsW, actRealPartW, actImagPartW
+      if (realpart(expected) == 0.0) then
+        write(expRealPartW, "(I0)") 8
+      else
+        write(expRealPartW, "(I0)") 8 + merge(0, 1, realpart(expected) >= 0) + &
+        merge(floor(log10(abs(realpart(expected)))), 0, abs(realpart(expected)) >= 1)
+      end if
+      if (imagpart(expected) == 0.0) then
+        write(expImagPartW, "(I0)") 8
+      else
+        write(expImagPartW, "(I0)") 8 + merge(0, 1, imagpart(expected) >= 0) + &
+        merge(floor(log10(abs(imagpart(expected)))), 0, abs(imagpart(expected)) >= 1)
+      end if
+      if (epsilon == 0.0) then
+        write(epsW, "(I0)") 8
+      else
+        write(epsW, "(I0)") 8 + merge(0, 1, epsilon >= 0) + merge(floor(log10(abs(epsilon))), 0, abs(epsilon) >= 1)
+      end if
+      if (abs(actual - expected) <= epsilon) then
+        print "(A34, F" // expRealPartW // ".6, A2, F" // expImagPartW // ".6, A15, F" // epsW // ".6)", &
+        "<PASSED::>Test Passed - Value == (", realpart(expected), ", ", imagpart(expected), ") within range ", epsilon
+      else
+        if (realpart(actual) == 0.0) then
+          write(actRealPartW, "(I0)") 8
+        else
+          write(actRealPartW, "(I0)") 8 + merge(0, 1, realpart(actual) >= 0) + &
+          merge(floor(log10(abs(realpart(actual)))), 0, abs(realpart(actual)) >= 1)
+        end if
+        if (imagpart(actual) == 0.0) then
+          write(actImagPartW, "(I0)") 8
+        else
+          write(actImagPartW, "(I0)") 8 + merge(0, 1, imagpart(actual) >= 0) + &
+          merge(floor(log10(abs(imagpart(actual)))), 0, abs(imagpart(actual)) >= 1)
+        end if
+        print "(A33, F" // actRealPartW // ".6, A2, F" // actImagPartW // &
+        ".6, A26, F" // expRealPartW // ".6, A2, F" // expImagPartW // ".6, A15, F" // epsW // ".6)", &
+        "<FAILED::>Failed asserting that (", realpart(actual), ", ", imagpart(actual), ") matches expected value (", &
+        realpart(expected), ", ", imagpart(expected), ") within range ", epsilon
+      end if
     end subroutine complexAssert
     subroutine complexAssertWithMsg(expected, actual, epsilon, msg)
       implicit none
       complex :: expected, actual
       real :: epsilon
       character(len=*) :: msg
-      ! TODO
+      character(len=100) :: expRealPartW, expImagPartW, epsW, actRealPartW, actImagPartW, n
+      if (realpart(expected) == 0.0) then
+        write(expRealPartW, "(I0)") 8
+      else
+        write(expRealPartW, "(I0)") 8 + merge(0, 1, realpart(expected) >= 0) + &
+        merge(floor(log10(abs(realpart(expected)))), 0, abs(realpart(expected)) >= 1)
+      end if
+      if (imagpart(expected) == 0.0) then
+        write(expImagPartW, "(I0)") 8
+      else
+        write(expImagPartW, "(I0)") 8 + merge(0, 1, imagpart(expected) >= 0) + &
+        merge(floor(log10(abs(imagpart(expected)))), 0, abs(imagpart(expected)) >= 1)
+      end if
+      if (epsilon == 0.0) then
+        write(epsW, "(I0)") 8
+      else
+        write(epsW, "(I0)") 8 + merge(0, 1, epsilon >= 0) + merge(floor(log10(abs(epsilon))), 0, abs(epsilon) >= 1)
+      end if
+      if (abs(actual - expected) <= epsilon) then
+        print "(A34, F" // expRealPartW // ".6, A2, F" // expImagPartW // ".6, A15, F" // epsW // ".6)", &
+        "<PASSED::>Test Passed - Value == (", realpart(expected), ", ", imagpart(expected), ") within range ", epsilon
+      else
+        if (realpart(actual) == 0.0) then
+          write(actRealPartW, "(I0)") 8
+        else
+          write(actRealPartW, "(I0)") 8 + merge(0, 1, realpart(actual) >= 0) + &
+          merge(floor(log10(abs(realpart(actual)))), 0, abs(realpart(actual)) >= 1)
+        end if
+        if (imagpart(actual) == 0.0) then
+          write(actImagPartW, "(I0)") 8
+        else
+          write(actImagPartW, "(I0)") 8 + merge(0, 1, imagpart(actual) >= 0) + &
+          merge(floor(log10(abs(imagpart(actual)))), 0, abs(imagpart(actual)) >= 1)
+        end if
+        write(n, "(I0)") len(msg)
+        print "(A10, A" // n // ", A26, F" // actRealPartW // ".6, A2, F" // actImagPartW // &
+        ".6, A26, F" // expRealPartW // ".6, A2, F" // expImagPartW // ".6, A15, F" // epsW // ".6)", &
+        "<FAILED::>", msg, " - Failed asserting that (", realpart(actual), ", ", imagpart(actual), ") matches expected value (", &
+        realpart(expected), ", ", imagpart(expected), ") within range ", epsilon
+      end if
     end subroutine complexAssertWithMsg
     subroutine floatInvAssert(unexpected, actual, epsilon)
       implicit none
