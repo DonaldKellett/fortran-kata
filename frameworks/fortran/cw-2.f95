@@ -1,5 +1,38 @@
 module CW2
   implicit none
+  private :: &
+    assertInt32Eq, &
+    assertInt32EqWithMsg, &
+    assertInt64Eq, &
+    assertInt64EqWithMsg, &
+    assertInt128Eq, &
+    assertInt128EqWithMsg, &
+    assertBoolEq, &
+    assertBoolEqWithMsg, &
+    assertStrEq, &
+    assertStrEqWithMsg, &
+    assertInt32NEq, &
+    assertInt32NEqWithMsg, &
+    assertInt64NEq, &
+    assertInt64NEqWithMsg, &
+    assertInt128NEq, &
+    assertInt128NEqWithMsg, &
+    assertBoolNEq, &
+    assertBoolNEqWithMsg, &
+    assertStrNEq, &
+    assertStrNEqWithMsg, &
+    floatAssert, &
+    floatAssertWithMsg, &
+    doubleAssert, &
+    doubleAssertWithMsg, &
+    complexAssert, &
+    complexAssertWithMsg, &
+    floatInvAssert, &
+    floatInvAssertWithMsg, &
+    doubleInvAssert, &
+    doubleInvAssertWithMsg, &
+    complexInvAssert, &
+    complexInvAssertWithMsg
   interface assertEquals
     module procedure &
       assertInt32Eq, &
