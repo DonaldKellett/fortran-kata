@@ -578,13 +578,64 @@ module CW2
       implicit none
       complex :: unexpected, actual
       real :: epsilon
-      ! TODO
+      character(len=100) :: unexpRealPartW, unexpImagPartW, epsW
+      if (realpart(unexpected) == 0.0) then
+        write(unexpRealPartW, "(I0)") 8
+      else
+        write(unexpRealPartW, "(I0)") 8 + merge(0, 1, realpart(unexpected) >= 0) + &
+        merge(floor(log10(abs(realpart(unexpected)))), 0, abs(realpart(unexpected)) >= 1)
+      end if
+      if (imagpart(unexpected) == 0.0) then
+        write(unexpImagPartW, "(I0)") 8
+      else
+        write(unexpImagPartW, "(I0)") 8 + merge(0, 1, imagpart(unexpected) >= 0) + &
+        merge(floor(log10(abs(imagpart(unexpected)))), 0, abs(imagpart(unexpected)) >= 1)
+      end if
+      if (epsilon == 0.0) then
+        write(epsW, "(I0)") 8
+      else
+        write(epsW, "(I0)") 8 + merge(0, 1, epsilon >= 0) + merge(floor(log10(abs(epsilon))), 0, abs(epsilon) >= 1)
+      end if
+      if (abs(actual - unexpected) > epsilon) then
+        print "(A34, F" // unexpRealPartW // ".6, A2, F" // unexpImagPartW // ".6, A19, F" // epsW // ".6, A1)", &
+        "<PASSED::>Test Passed - Value /= (", realpart(unexpected), ", ", imagpart(unexpected), ") (rejected range: ", epsilon, ")"
+      else
+        print "(A46, F" // unexpRealPartW // ".6, A2, F" // unexpImagPartW // ".6, A15, F" // epsW // ".6)", &
+        "<FAILED::>Result should not be equivalent to (", realpart(unexpected), &
+        ", ", imagpart(unexpected), ") within range ", epsilon
+      end if
     end subroutine complexInvAssert
     subroutine complexInvAssertWithMsg(unexpected, actual, epsilon, msg)
       implicit none
       complex :: unexpected, actual
       real :: epsilon
       character(len=*) :: msg
-      ! TODO
+      character(len=100) :: unexpRealPartW, unexpImagPartW, epsW, n
+      if (realpart(unexpected) == 0.0) then
+        write(unexpRealPartW, "(I0)") 8
+      else
+        write(unexpRealPartW, "(I0)") 8 + merge(0, 1, realpart(unexpected) >= 0) + &
+        merge(floor(log10(abs(realpart(unexpected)))), 0, abs(realpart(unexpected)) >= 1)
+      end if
+      if (imagpart(unexpected) == 0.0) then
+        write(unexpImagPartW, "(I0)") 8
+      else
+        write(unexpImagPartW, "(I0)") 8 + merge(0, 1, imagpart(unexpected) >= 0) + &
+        merge(floor(log10(abs(imagpart(unexpected)))), 0, abs(imagpart(unexpected)) >= 1)
+      end if
+      if (epsilon == 0.0) then
+        write(epsW, "(I0)") 8
+      else
+        write(epsW, "(I0)") 8 + merge(0, 1, epsilon >= 0) + merge(floor(log10(abs(epsilon))), 0, abs(epsilon) >= 1)
+      end if
+      if (abs(actual - unexpected) > epsilon) then
+        print "(A34, F" // unexpRealPartW // ".6, A2, F" // unexpImagPartW // ".6, A19, F" // epsW // ".6, A1)", &
+        "<PASSED::>Test Passed - Value /= (", realpart(unexpected), ", ", imagpart(unexpected), ") (rejected range: ", epsilon, ")"
+      else
+        write(n, "(I0)") len(msg)
+        print "(A10, A" // n // ", A39, F" // unexpRealPartW // ".6, A2, F" // unexpImagPartW // ".6, A15, F" // epsW // ".6)", &
+        "<FAILED::>", msg, " - Result should not be equivalent to (", realpart(unexpected), &
+        ", ", imagpart(unexpected), ") within range ", epsilon
+      end if
     end subroutine complexInvAssertWithMsg
 end module CW2

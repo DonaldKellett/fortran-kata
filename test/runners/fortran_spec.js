@@ -115,5 +115,11 @@ describe('GNU Fortran', function () {
         done();
       });
     });
+    it('should have a working assertNotWithinTolerance for default complex values, both with and without a custom failure message', function (done) {
+      child_process.exec('gfortran -c frameworks/fortran/cw-2.f95; gfortran examples/testIntegration/snippets/complexInvAssert.f95 cw-2.o; ./a.out', function (error, stdout, stderr) {
+        expect(stdout).to.equal("<FAILED::>Result should not be equivalent to (3.000000, -4.000000) within range 0.001000\n<FAILED::>Result should not be equivalent to (3.000000, -4.000000) within range 0.001000\n<PASSED::>Test Passed - Value /= (3.000000, -4.000000) (rejected range: 0.001000)\n<FAILED::>Wrong complex number, try again - Result should not be equivalent to (3.000000, -4.000000) within range 0.001000\n<FAILED::>Wrong complex number, try again - Result should not be equivalent to (3.000000, -4.000000) within range 0.001000\n<PASSED::>Test Passed - Value /= (3.000000, -4.000000) (rejected range: 0.001000)\n");
+        done();
+      });
+    });
   });
 });
