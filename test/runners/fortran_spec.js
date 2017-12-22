@@ -17,6 +17,20 @@ describe('GNU Fortran', function () {
         done();
       });
     });
+    it('should correctly handle compile time errors', function (done) {
+      child_process.exec('gfortran examples/solutionOnly/compileTimeError.f95; ./a.out', function (error, stdout, stderr) {
+        expect(stderr).to.contain("Error: Entity with assumed character length at (1) must be a dummy argument or a PARAMETER");
+        done();
+      });
+    });
+    it('should correctly handle runtime errors', function (done) {
+      child_process.exec('gfortran examples/solutionOnly/runtimeError.f95; ./a.out', function (error, stdout, stderr) {
+        expect(stdout).to.not.equal("Free-form\n");
+        expect(stdout).to.contain("1\n8\n");
+        expect(stderr).to.contain("Warning: Array reference at (1) is out of bounds (0 < 1) in dimension 1");
+        done();
+      });
+    });
   });
   describe('Test Integration (CW-2)', function () {
     it('should have working spec methods', function (done) {
