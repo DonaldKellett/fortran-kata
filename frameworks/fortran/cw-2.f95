@@ -82,27 +82,28 @@ module CW2
       implicit none
       character(len=*) :: msg
       character(len=100) :: formatSpecifier
-      write(formatSpecifier, "(A2, I0, A1)") "(A", 12 + len(msg), ")"
-      print formatSpecifier, "<DESCRIBE::>" // msg
+      write(formatSpecifier, "(A2, I0, A1)") "(A", 13 + len(msg), ")"
+      print formatSpecifier, char(10) // "<DESCRIBE::>" // msg
     end subroutine describe
     subroutine it(msg)
       implicit none
       character(len=*) :: msg
       character(len=100) :: formatSpecifier
-      write(formatSpecifier, "(A2, I0, A1)") "(A", 6 + len(msg), ")"
-      print formatSpecifier, "<IT::>" // msg
+      write(formatSpecifier, "(A2, I0, A1)") "(A", 7 + len(msg), ")"
+      print formatSpecifier, char(10) // "<IT::>" // msg
     end subroutine it
     subroutine endContext()
       implicit none
-      print "(A15)", "<COMPLETEDIN::>"
+      print "(A16)", char(10) // "<COMPLETEDIN::>"
     end subroutine endContext
     subroutine assertInt32Eq(expected, actual)
       implicit none
       integer :: expected, actual
       if (actual == expected) then
-        print "(A33, I0)", "<PASSED::>Test Passed - Value == ", expected
+        print "(A34, I0)", char(10) // "<PASSED::>Test Passed - Value == ", expected
       else
-        print "(A20, I0, A15, I0)", "<FAILED::>Expected: ", expected, ", instead got: ", actual
+        print "(A21, I0, A15, I0)", char(10) // &
+        "<FAILED::>Expected: ", expected, ", instead got: ", actual
       end if
     end subroutine assertInt32Eq
     subroutine assertInt32EqWithMsg(expected, actual, msg)
@@ -111,19 +112,21 @@ module CW2
       character(len=*) :: msg
       character(len=100) :: n
       if (actual == expected) then
-        print "(A33, I0)", "<PASSED::>Test Passed - Value == ", expected
+        print "(A34, I0)", char(10) // "<PASSED::>Test Passed - Value == ", expected
       else
         write(n, "(I0)") len(msg)
-        print "(A10, A" // n // ", A13, I0, A15, I0)", "<FAILED::>", msg, " - Expected: ", expected, ", instead got: ", actual
+        print "(A11, A" // n // ", A13, I0, A15, I0)", char(10) // &
+        "<FAILED::>", msg, " - Expected: ", expected, ", instead got: ", actual
       end if
     end subroutine assertInt32EqWithMsg
     subroutine assertInt64Eq(expected, actual)
       implicit none
       integer(kind=8) :: expected, actual
       if (actual == expected) then
-        print "(A33, I0)", "<PASSED::>Test Passed - Value == ", expected
+        print "(A34, I0)", char(10) // "<PASSED::>Test Passed - Value == ", expected
       else
-        print "(A20, I0, A15, I0)", "<FAILED::>Expected: ", expected, ", instead got: ", actual
+        print "(A21, I0, A15, I0)", char(10) // &
+        "<FAILED::>Expected: ", expected, ", instead got: ", actual
       end if
     end subroutine assertInt64Eq
     subroutine assertInt64EqWithMsg(expected, actual, msg)
@@ -132,19 +135,21 @@ module CW2
       character(len=*) :: msg
       character(len=100) :: n
       if (actual == expected) then
-        print "(A33, I0)", "<PASSED::>Test Passed - Value == ", expected
+        print "(A34, I0)", char(10) // "<PASSED::>Test Passed - Value == ", expected
       else
         write(n, "(I0)") len(msg)
-        print "(A10, A" // n // ", A13, I0, A15, I0)", "<FAILED::>", msg, " - Expected: ", expected, ", instead got: ", actual
+        print "(A11, A" // n // ", A13, I0, A15, I0)", char(10) // &
+        "<FAILED::>", msg, " - Expected: ", expected, ", instead got: ", actual
       end if
     end subroutine assertInt64EqWithMsg
     subroutine assertInt128Eq(expected, actual)
       implicit none
       integer(kind=16) :: expected, actual
       if (actual == expected) then
-        print "(A33, I0)", "<PASSED::>Test Passed - Value == ", expected
+        print "(A34, I0)", char(10) // "<PASSED::>Test Passed - Value == ", expected
       else
-        print "(A20, I0, A15, I0)", "<FAILED::>Expected: ", expected, ", instead got: ", actual
+        print "(A21, I0, A15, I0)", char(10) // &
+        "<FAILED::>Expected: ", expected, ", instead got: ", actual
       end if
     end subroutine assertInt128Eq
     subroutine assertInt128EqWithMsg(expected, actual, msg)
@@ -153,19 +158,21 @@ module CW2
       character(len=*) :: msg
       character(len=100) :: n
       if (actual == expected) then
-        print "(A33, I0)", "<PASSED::>Test Passed - Value == ", expected
+        print "(A34, I0)", char(10) // "<PASSED::>Test Passed - Value == ", expected
       else
         write(n, "(I0)") len(msg)
-        print "(A10, A" // n // ", A13, I0, A15, I0)", "<FAILED::>", msg, " - Expected: ", expected, ", instead got: ", actual
+        print "(A11, A" // n // ", A13, I0, A15, I0)", char(10) // &
+        "<FAILED::>", msg, " - Expected: ", expected, ", instead got: ", actual
       end if
     end subroutine assertInt128EqWithMsg
     subroutine assertBoolEq(expected, actual)
       implicit none
       logical :: expected, actual
       if (actual .eqv. expected) then
-        print "(A33, L1)", "<PASSED::>Test Passed - Value == ", expected
+        print "(A34, L1)", char(10) // "<PASSED::>Test Passed - Value == ", expected
       else
-        print "(A20, L1, A15, L1)", "<FAILED::>Expected: ", expected, ", instead got: ", actual
+        print "(A21, L1, A15, L1)", char(10) // &
+        "<FAILED::>Expected: ", expected, ", instead got: ", actual
       end if
     end subroutine assertBoolEq
     subroutine assertBoolEqWithMsg(expected, actual, msg)
@@ -174,10 +181,11 @@ module CW2
       character(len=*) :: msg
       character(len=100) :: n
       if (actual .eqv. expected) then
-        print "(A33, L1)", "<PASSED::>Test Passed - Value == ", expected
+        print "(A34, L1)", char(10) // "<PASSED::>Test Passed - Value == ", expected
       else
         write(n, "(I0)") len(msg)
-        print "(A10, A" // n // ", A13, L1, A15, L1)", "<FAILED::>", msg, " - Expected: ", expected, ", instead got: ", actual
+        print "(A11, A" // n // ", A13, L1, A15, L1)", char(10) // &
+        "<FAILED::>", msg, " - Expected: ", expected, ", instead got: ", actual
       end if
     end subroutine assertBoolEqWithMsg
     subroutine assertStrEq(expected, actual)
@@ -186,10 +194,11 @@ module CW2
       character(len=100) :: n, m
       write(n, "(I0)") len(expected)
       if (actual == expected .and. len(actual) == len(expected)) then
-        print "(A33, A" // n // ")", "<PASSED::>Test Passed - Value == ", expected
+        print "(A34, A" // n // ")", char(10) // "<PASSED::>Test Passed - Value == ", expected
       else
         write(m, "(I0)") len(actual)
-        print "(A20, A" // n // ", A15, A" // m // ")", "<FAILED::>Expected: ", expected, ", instead got: ", actual
+        print "(A21, A" // n // ", A15, A" // m // ")", char(10) // &
+        "<FAILED::>Expected: ", expected, ", instead got: ", actual
       end if
     end subroutine assertStrEq
     subroutine assertStrEqWithMsg(expected, actual, msg)
@@ -198,11 +207,12 @@ module CW2
       character(len=100) :: n, m, o
       write(n, "(I0)") len(expected)
       if (actual == expected .and. len(actual) == len(expected)) then
-        print "(A33, A" // n // ")", "<PASSED::>Test Passed - Value == ", expected
+        print "(A34, A" // n // ")", char(10) // "<PASSED::>Test Passed - Value == ", expected
       else
         write(m, "(I0)") len(actual)
         write(o, "(I0)") len(msg)
-        print "(A10, A" // o // ", A13, A" // n // ", A15, A" // m // ")", &
+        print "(A11, A" // o // ", A13, A" // n // ", A15, A" // m // ")", &
+        char(10) // &
         "<FAILED::>", msg, " - Expected: ", expected, ", instead got: ", actual
       end if
     end subroutine assertStrEqWithMsg
@@ -210,9 +220,10 @@ module CW2
       implicit none
       integer :: unexpected, actual
       if (actual /= unexpected) then
-        print "(A33, I0)", "<PASSED::>Test Passed - Value /= ", unexpected
+        print "(A34, I0)", char(10) // "<PASSED::>Test Passed - Value /= ", unexpected
       else
-        print "(A40, I0)", "<FAILED::>Expected result to not equal: ", unexpected
+        print "(A41, I0)", char(10) // &
+        "<FAILED::>Expected result to not equal: ", unexpected
       end if
     end subroutine assertInt32NEq
     subroutine assertInt32NEqWithMsg(unexpected, actual, msg)
@@ -221,19 +232,21 @@ module CW2
       character(len=*) :: msg
       character(len=100) :: n
       if (actual /= unexpected) then
-        print "(A33, I0)", "<PASSED::>Test Passed - Value /= ", unexpected
+        print "(A34, I0)", char(10) // "<PASSED::>Test Passed - Value /= ", unexpected
       else
         write(n, "(I0)") len(msg)
-        print "(A10, A" // n // ", A33, I0)", "<FAILED::>", msg, " - Expected result to not equal: ", unexpected
+        print "(A11, A" // n // ", A33, I0)", char(10) // &
+        "<FAILED::>", msg, " - Expected result to not equal: ", unexpected
       end if
     end subroutine assertInt32NEqWithMsg
     subroutine assertInt64NEq(unexpected, actual)
       implicit none
       integer(kind=8) :: unexpected, actual
       if (actual /= unexpected) then
-        print "(A33, I0)", "<PASSED::>Test Passed - Value /= ", unexpected
+        print "(A34, I0)", char(10) // "<PASSED::>Test Passed - Value /= ", unexpected
       else
-        print "(A40, I0)", "<FAILED::>Expected result to not equal: ", unexpected
+        print "(A41, I0)", char(10) // &
+        "<FAILED::>Expected result to not equal: ", unexpected
       end if
     end subroutine assertInt64NEq
     subroutine assertInt64NEqWithMsg(unexpected, actual, msg)
@@ -242,19 +255,21 @@ module CW2
       character(len=*) :: msg
       character(len=100) :: n
       if (actual /= unexpected) then
-        print "(A33, I0)", "<PASSED::>Test Passed - Value /= ", unexpected
+        print "(A34, I0)", char(10) // "<PASSED::>Test Passed - Value /= ", unexpected
       else
         write(n, "(I0)") len(msg)
-        print "(A10, A" // n // ", A33, I0)", "<FAILED::>", msg, " - Expected result to not equal: ", unexpected
+        print "(A11, A" // n // ", A33, I0)", char(10) // &
+        "<FAILED::>", msg, " - Expected result to not equal: ", unexpected
       end if
     end subroutine assertInt64NEqWithMsg
     subroutine assertInt128NEq(unexpected, actual)
       implicit none
       integer(kind=16) :: unexpected, actual
       if (actual /= unexpected) then
-        print "(A33, I0)", "<PASSED::>Test Passed - Value /= ", unexpected
+        print "(A34, I0)", char(10) // "<PASSED::>Test Passed - Value /= ", unexpected
       else
-        print "(A40, I0)", "<FAILED::>Expected result to not equal: ", unexpected
+        print "(A41, I0)", char(10) // &
+        "<FAILED::>Expected result to not equal: ", unexpected
       end if
     end subroutine assertInt128NEq
     subroutine assertInt128NEqWithMsg(unexpected, actual, msg)
@@ -263,19 +278,21 @@ module CW2
       character(len=*) :: msg
       character(len=100) :: n
       if (actual /= unexpected) then
-        print "(A33, I0)", "<PASSED::>Test Passed - Value /= ", unexpected
+        print "(A34, I0)", char(10) // "<PASSED::>Test Passed - Value /= ", unexpected
       else
         write(n, "(I0)") len(msg)
-        print "(A10, A" // n // ", A33, I0)", "<FAILED::>", msg, " - Expected result to not equal: ", unexpected
+        print "(A11, A" // n // ", A33, I0)", char(10) // &
+        "<FAILED::>", msg, " - Expected result to not equal: ", unexpected
       end if
     end subroutine assertInt128NEqWithMsg
     subroutine assertBoolNEq(unexpected, actual)
       implicit none
       logical :: unexpected, actual
       if (actual .neqv. unexpected) then
-        print "(A33, L1)", "<PASSED::>Test Passed - Value /= ", unexpected
+        print "(A34, L1)", char(10) // "<PASSED::>Test Passed - Value /= ", unexpected
       else
-        print "(A40, L1)", "<FAILED::>Expected result to not equal: ", unexpected
+        print "(A41, L1)", char(10) // &
+        "<FAILED::>Expected result to not equal: ", unexpected
       end if
     end subroutine assertBoolNEq
     subroutine assertBoolNEqWithMsg(unexpected, actual, msg)
@@ -284,10 +301,11 @@ module CW2
       character(len=*) :: msg
       character(len=100) :: n
       if (actual .neqv. unexpected) then
-        print "(A33, L1)", "<PASSED::>Test Passed - Value /= ", unexpected
+        print "(A34, L1)", char(10) // "<PASSED::>Test Passed - Value /= ", unexpected
       else
         write(n, "(I0)") len(msg)
-        print "(A10, A" // n // ", A33, L1)", "<FAILED::>", msg, " - Expected result to not equal: ", unexpected
+        print "(A11, A" // n // ", A33, L1)", char(10) // &
+        "<FAILED::>", msg, " - Expected result to not equal: ", unexpected
       end if
     end subroutine assertBoolNEqWithMsg
     subroutine assertStrNEq(unexpected, actual)
@@ -296,9 +314,10 @@ module CW2
       character(len=100) :: n
       write(n, "(I0)") len(unexpected)
       if (actual /= unexpected .or. len(actual) /= len(unexpected)) then
-        print "(A33, A" // n // ")", "<PASSED::>Test Passed - Value /= ", unexpected
+        print "(A34, A" // n // ")", char(10) // "<PASSED::>Test Passed - Value /= ", unexpected
       else
-        print "(A40, A" // n // ")", "<FAILED::>Expected result to not equal: ", unexpected
+        print "(A41, A" // n // ")", char(10) // &
+        "<FAILED::>Expected result to not equal: ", unexpected
       end if
     end subroutine assertStrNEq
     subroutine assertStrNEqWithMsg(unexpected, actual, msg)
@@ -307,10 +326,11 @@ module CW2
       character(len=100) :: n, o
       write(n, "(I0)") len(unexpected)
       if (actual /= unexpected .or. len(actual) /= len(unexpected)) then
-        print "(A33, A" // n // ")", "<PASSED::>Test Passed - Value /= ", unexpected
+        print "(A34, A" // n // ")", char(10) // "<PASSED::>Test Passed - Value /= ", unexpected
       else
         write(o, "(I0)") len(msg)
-        print "(A10, A" // o // ", A33, A" // n // ")", "<FAILED::>", msg, " - Expected result to not equal: ", unexpected
+        print "(A11, A" // o // ", A33, A" // n // ")", char(10) // &
+        "<FAILED::>", msg, " - Expected result to not equal: ", unexpected
       end if
     end subroutine assertStrNEqWithMsg
     subroutine floatAssert(expected, actual, epsilon)
@@ -328,15 +348,16 @@ module CW2
         write(epsW, "(I0)") 8 + merge(0, 1, epsilon >= 0) + merge(floor(log10(abs(epsilon))), 0, abs(epsilon) >= 1)
       end if
       if (abs(actual - expected) <= epsilon) then
-        print "(A33, F" // expW // ".6, A14, F" // epsW // ".6)", &
-        "<PASSED::>Test Passed - Value == ", expected, " within range ", epsilon
+        print "(A34, F" // expW // ".6, A14, F" // epsW // ".6)", &
+        char(10) // "<PASSED::>Test Passed - Value == ", expected, " within range ", epsilon
       else
         if (actual == 0.0) then
           write(actW, "(I0)") 8
         else
           write(actW, "(I0)") 8 + merge(0, 1, actual >= 0) + merge(floor(log10(abs(actual))), 0, abs(actual) >= 1)
         end if
-        print "(A32, F" // actW // ".6, A24, F" // expW // ".6, A14, F" // epsW // ".6)", &
+        print "(A33, F" // actW // ".6, A24, F" // expW // ".6, A14, F" // epsW // ".6)", &
+        char(10) // &
         "<FAILED::>Failed asserting that ", actual, " matches expected value ", expected, " within range ", epsilon
       end if
     end subroutine floatAssert
@@ -356,8 +377,8 @@ module CW2
         write(epsW, "(I0)") 8 + merge(0, 1, epsilon >= 0) + merge(floor(log10(abs(epsilon))), 0, abs(epsilon) >= 1)
       end if
       if (abs(actual - expected) <= epsilon) then
-        print "(A33, F" // expW // ".6, A14, F" // epsW // ".6)", &
-        "<PASSED::>Test Passed - Value == ", expected, " within range ", epsilon
+        print "(A34, F" // expW // ".6, A14, F" // epsW // ".6)", &
+        char(10) // "<PASSED::>Test Passed - Value == ", expected, " within range ", epsilon
       else
         if (actual == 0.0) then
           write(actW, "(I0)") 8
@@ -365,7 +386,8 @@ module CW2
           write(actW, "(I0)") 8 + merge(0, 1, actual >= 0) + merge(floor(log10(abs(actual))), 0, abs(actual) >= 1)
         end if
         write(n, "(I0)") len(msg)
-        print "(A10, A" // n // ", A25, F" // actW // ".6, A24, F" // expW // ".6, A14, F" // epsW // ".6)", &
+        print "(A11, A" // n // ", A25, F" // actW // ".6, A24, F" // expW // ".6, A14, F" // epsW // ".6)", &
+        char(10) // &
         "<FAILED::>", msg, " - Failed asserting that ", actual, " matches expected value ", expected, " within range ", epsilon
       end if
     end subroutine floatAssertWithMsg
@@ -384,15 +406,16 @@ module CW2
         write(epsW, "(I0)") 17 + merge(0, 1, epsilon >= 0) + merge(floor(log10(abs(epsilon))), 0, abs(epsilon) >= 1)
       end if
       if (abs(actual - expected) <= epsilon) then
-        print "(A33, F" // expW // ".15, A14, F" // epsW // ".15)", &
-        "<PASSED::>Test Passed - Value == ", expected, " within range ", epsilon
+        print "(A34, F" // expW // ".15, A14, F" // epsW // ".15)", &
+        char(10) // "<PASSED::>Test Passed - Value == ", expected, " within range ", epsilon
       else
         if (actual == 0.0) then
           write(actW, "(I0)") 17
         else
           write(actW, "(I0)") 17 + merge(0, 1, actual >= 0) + merge(floor(log10(abs(actual))), 0, abs(actual) >= 1)
         end if
-        print "(A32, F" // actW // ".15, A24, F" // expW // ".15, A14, F" // epsW // ".15)", &
+        print "(A33, F" // actW // ".15, A24, F" // expW // ".15, A14, F" // epsW // ".15)", &
+        char(10) // &
         "<FAILED::>Failed asserting that ", actual, " matches expected value ", expected, " within range ", epsilon
       end if
     end subroutine doubleAssert
@@ -412,8 +435,8 @@ module CW2
         write(epsW, "(I0)") 17 + merge(0, 1, epsilon >= 0) + merge(floor(log10(abs(epsilon))), 0, abs(epsilon) >= 1)
       end if
       if (abs(actual - expected) <= epsilon) then
-        print "(A33, F" // expW // ".15, A14, F" // epsW // ".15)", &
-        "<PASSED::>Test Passed - Value == ", expected, " within range ", epsilon
+        print "(A34, F" // expW // ".15, A14, F" // epsW // ".15)", &
+        char(10) // "<PASSED::>Test Passed - Value == ", expected, " within range ", epsilon
       else
         if (actual == 0.0) then
           write(actW, "(I0)") 17
@@ -421,7 +444,8 @@ module CW2
           write(actW, "(I0)") 17 + merge(0, 1, actual >= 0) + merge(floor(log10(abs(actual))), 0, abs(actual) >= 1)
         end if
         write(n, "(I0)") len(msg)
-        print "(A10, A" // n // ", A25, F" // actW // ".15, A24, F" // expW // ".15, A14, F" // epsW // ".15)", &
+        print "(A11, A" // n // ", A25, F" // actW // ".15, A24, F" // expW // ".15, A14, F" // epsW // ".15)", &
+        char(10) // &
         "<FAILED::>", msg, " - Failed asserting that ", actual, " matches expected value ", expected, " within range ", epsilon
       end if
     end subroutine doubleAssertWithMsg
@@ -448,7 +472,8 @@ module CW2
         write(epsW, "(I0)") 8 + merge(0, 1, epsilon >= 0) + merge(floor(log10(abs(epsilon))), 0, abs(epsilon) >= 1)
       end if
       if (abs(actual - expected) <= epsilon) then
-        print "(A34, F" // expRealPartW // ".6, A2, F" // expImagPartW // ".6, A15, F" // epsW // ".6)", &
+        print "(A35, F" // expRealPartW // ".6, A2, F" // expImagPartW // ".6, A15, F" // epsW // ".6)", &
+        char(10) // &
         "<PASSED::>Test Passed - Value == (", realpart(expected), ", ", imagpart(expected), ") within range ", epsilon
       else
         if (realpart(actual) == 0.0) then
@@ -463,8 +488,9 @@ module CW2
           write(actImagPartW, "(I0)") 8 + merge(0, 1, imagpart(actual) >= 0) + &
           merge(floor(log10(abs(imagpart(actual)))), 0, abs(imagpart(actual)) >= 1)
         end if
-        print "(A33, F" // actRealPartW // ".6, A2, F" // actImagPartW // &
+        print "(A34, F" // actRealPartW // ".6, A2, F" // actImagPartW // &
         ".6, A26, F" // expRealPartW // ".6, A2, F" // expImagPartW // ".6, A15, F" // epsW // ".6)", &
+        char(10) // &
         "<FAILED::>Failed asserting that (", realpart(actual), ", ", imagpart(actual), ") matches expected value (", &
         realpart(expected), ", ", imagpart(expected), ") within range ", epsilon
       end if
@@ -493,7 +519,8 @@ module CW2
         write(epsW, "(I0)") 8 + merge(0, 1, epsilon >= 0) + merge(floor(log10(abs(epsilon))), 0, abs(epsilon) >= 1)
       end if
       if (abs(actual - expected) <= epsilon) then
-        print "(A34, F" // expRealPartW // ".6, A2, F" // expImagPartW // ".6, A15, F" // epsW // ".6)", &
+        print "(A35, F" // expRealPartW // ".6, A2, F" // expImagPartW // ".6, A15, F" // epsW // ".6)", &
+        char(10) // &
         "<PASSED::>Test Passed - Value == (", realpart(expected), ", ", imagpart(expected), ") within range ", epsilon
       else
         if (realpart(actual) == 0.0) then
@@ -509,8 +536,9 @@ module CW2
           merge(floor(log10(abs(imagpart(actual)))), 0, abs(imagpart(actual)) >= 1)
         end if
         write(n, "(I0)") len(msg)
-        print "(A10, A" // n // ", A26, F" // actRealPartW // ".6, A2, F" // actImagPartW // &
+        print "(A11, A" // n // ", A26, F" // actRealPartW // ".6, A2, F" // actImagPartW // &
         ".6, A26, F" // expRealPartW // ".6, A2, F" // expImagPartW // ".6, A15, F" // epsW // ".6)", &
+        char(10) // &
         "<FAILED::>", msg, " - Failed asserting that (", realpart(actual), ", ", imagpart(actual), ") matches expected value (", &
         realpart(expected), ", ", imagpart(expected), ") within range ", epsilon
       end if
@@ -530,10 +558,12 @@ module CW2
         write(epsW, "(I0)") 8 + merge(0, 1, epsilon >= 0) + merge(floor(log10(abs(epsilon))), 0, abs(epsilon) >= 1)
       end if
       if (abs(actual - unexpected) > epsilon) then
-        print "(A33, F" // unexpW // ".6, A18, F" // epsW // ".6, A1)", &
+        print "(A34, F" // unexpW // ".6, A18, F" // epsW // ".6, A1)", &
+        char(10) // &
         "<PASSED::>Test Passed - Value /= ", unexpected, " (rejected range: ", epsilon, ")"
       else
-        print "(A45, F" // unexpW // ".6, A14, F" // epsW // ".6)", &
+        print "(A46, F" // unexpW // ".6, A14, F" // epsW // ".6)", &
+        char(10) // &
         "<FAILED::>Result should not be equivalent to ", unexpected, " within range ", epsilon
       end if
     end subroutine floatInvAssert
@@ -553,11 +583,13 @@ module CW2
         write(epsW, "(I0)") 8 + merge(0, 1, epsilon >= 0) + merge(floor(log10(abs(epsilon))), 0, abs(epsilon) >= 1)
       end if
       if (abs(actual - unexpected) > epsilon) then
-        print "(A33, F" // unexpW // ".6, A18, F" // epsW // ".6, A1)", &
+        print "(A34, F" // unexpW // ".6, A18, F" // epsW // ".6, A1)", &
+        char(10) // &
         "<PASSED::>Test Passed - Value /= ", unexpected, " (rejected range: ", epsilon, ")"
       else
         write(n, "(I0)") len(msg)
-        print "(A10, A" // n // ", A38, F" // unexpW // ".6, A14, F" // epsW // ".6)", &
+        print "(A11, A" // n // ", A38, F" // unexpW // ".6, A14, F" // epsW // ".6)", &
+        char(10) // &
         "<FAILED::>", msg, " - Result should not be equivalent to ", unexpected, " within range ", epsilon
       end if
     end subroutine floatInvAssertWithMsg
@@ -576,10 +608,12 @@ module CW2
         write(epsW, "(I0)") 17 + merge(0, 1, epsilon >= 0) + merge(floor(log10(abs(epsilon))), 0, abs(epsilon) >= 1)
       end if
       if (abs(actual - unexpected) > epsilon) then
-        print "(A33, F" // unexpW // ".15, A18, F" // epsW // ".15, A1)", &
+        print "(A34, F" // unexpW // ".15, A18, F" // epsW // ".15, A1)", &
+        char(10) // &
         "<PASSED::>Test Passed - Value /= ", unexpected, " (rejected range: ", epsilon, ")"
       else
-        print "(A45, F" // unexpW // ".15, A14, F" // epsW // ".15)", &
+        print "(A46, F" // unexpW // ".15, A14, F" // epsW // ".15)", &
+        char(10) // &
         "<FAILED::>Result should not be equivalent to ", unexpected, " within range ", epsilon
       end if
     end subroutine doubleInvAssert
@@ -599,11 +633,13 @@ module CW2
         write(epsW, "(I0)") 17 + merge(0, 1, epsilon >= 0) + merge(floor(log10(abs(epsilon))), 0, abs(epsilon) >= 1)
       end if
       if (abs(actual - unexpected) > epsilon) then
-        print "(A33, F" // unexpW // ".15, A18, F" // epsW // ".15, A1)", &
+        print "(A34, F" // unexpW // ".15, A18, F" // epsW // ".15, A1)", &
+        char(10) // &
         "<PASSED::>Test Passed - Value /= ", unexpected, " (rejected range: ", epsilon, ")"
       else
         write(n, "(I0)") len(msg)
-        print "(A10, A" // n // ", A38, F" // unexpW // ".15, A14, F" // epsW // ".15)", &
+        print "(A11, A" // n // ", A38, F" // unexpW // ".15, A14, F" // epsW // ".15)", &
+        char(10) // &
         "<FAILED::>", msg, " - Result should not be equivalent to ", unexpected, " within range ", epsilon
       end if
     end subroutine doubleInvAssertWithMsg
@@ -630,10 +666,12 @@ module CW2
         write(epsW, "(I0)") 8 + merge(0, 1, epsilon >= 0) + merge(floor(log10(abs(epsilon))), 0, abs(epsilon) >= 1)
       end if
       if (abs(actual - unexpected) > epsilon) then
-        print "(A34, F" // unexpRealPartW // ".6, A2, F" // unexpImagPartW // ".6, A19, F" // epsW // ".6, A1)", &
+        print "(A35, F" // unexpRealPartW // ".6, A2, F" // unexpImagPartW // ".6, A19, F" // epsW // ".6, A1)", &
+        char(10) // &
         "<PASSED::>Test Passed - Value /= (", realpart(unexpected), ", ", imagpart(unexpected), ") (rejected range: ", epsilon, ")"
       else
-        print "(A46, F" // unexpRealPartW // ".6, A2, F" // unexpImagPartW // ".6, A15, F" // epsW // ".6)", &
+        print "(A47, F" // unexpRealPartW // ".6, A2, F" // unexpImagPartW // ".6, A15, F" // epsW // ".6)", &
+        char(10) // &
         "<FAILED::>Result should not be equivalent to (", realpart(unexpected), &
         ", ", imagpart(unexpected), ") within range ", epsilon
       end if
@@ -662,11 +700,13 @@ module CW2
         write(epsW, "(I0)") 8 + merge(0, 1, epsilon >= 0) + merge(floor(log10(abs(epsilon))), 0, abs(epsilon) >= 1)
       end if
       if (abs(actual - unexpected) > epsilon) then
-        print "(A34, F" // unexpRealPartW // ".6, A2, F" // unexpImagPartW // ".6, A19, F" // epsW // ".6, A1)", &
+        print "(A35, F" // unexpRealPartW // ".6, A2, F" // unexpImagPartW // ".6, A19, F" // epsW // ".6, A1)", &
+        char(10) // &
         "<PASSED::>Test Passed - Value /= (", realpart(unexpected), ", ", imagpart(unexpected), ") (rejected range: ", epsilon, ")"
       else
         write(n, "(I0)") len(msg)
-        print "(A10, A" // n // ", A39, F" // unexpRealPartW // ".6, A2, F" // unexpImagPartW // ".6, A15, F" // epsW // ".6)", &
+        print "(A11, A" // n // ", A39, F" // unexpRealPartW // ".6, A2, F" // unexpImagPartW // ".6, A15, F" // epsW // ".6)", &
+        char(10) // &
         "<FAILED::>", msg, " - Result should not be equivalent to (", realpart(unexpected), &
         ", ", imagpart(unexpected), ") within range ", epsilon
       end if
