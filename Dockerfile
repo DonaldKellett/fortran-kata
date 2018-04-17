@@ -13,6 +13,7 @@ COPY examples/solutionOnly/*.f95 examples/solutionOnly/
 COPY test/runners/fortran_spec.js test/runners/
 COPY frameworks/fortran/cw-2.f95 frameworks/fortran/
 COPY examples/testIntegration/snippets/*.f95 examples/testIntegration/snippets/
+COPY examples/testIntegration/bug_fixes/*.f95 examples/testIntegration/bug_fixes/
 
 # Run spec tests
 RUN mocha test/runners/fortran_spec.js

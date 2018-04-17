@@ -194,11 +194,21 @@ module CW2
       character(len=100) :: n, m
       write(n, "(I0)") len(expected)
       if (actual == expected .and. len(actual) == len(expected)) then
-        print "(A34, A" // n // ")", char(10) // "<PASSED::>Test Passed - Value == ", expected
+        if (len(expected) == 0) then
+          print "(A50)", char(10) // "<PASSED::>Test Passed - Value was an empty string"
+        else
+          print "(A34, A" // n // ")", char(10) // "<PASSED::>Test Passed - Value == ", expected
+        end if
       else
         write(m, "(I0)") len(actual)
-        print "(A21, A" // n // ", A15, A" // m // ")", char(10) // &
-        "<FAILED::>Expected: ", expected, ", instead got: ", actual
+        if (len(actual) == 0) then
+          print "(A21, A" // n // ", A29)", char(10) // "<FAILED::>Expected: ", expected, ", instead got an empty string"
+        else if (len(expected) == 0) then
+          print "(A50, A" // m // ")", char(10) // "<FAILED::>Expected an empty string, instead got: ", actual
+        else
+          print "(A21, A" // n // ", A15, A" // m // ")", char(10) // &
+          "<FAILED::>Expected: ", expected, ", instead got: ", actual
+        end if
       end if
     end subroutine assertStrEq
     subroutine assertStrEqWithMsg(expected, actual, msg)
@@ -207,13 +217,24 @@ module CW2
       character(len=100) :: n, m, o
       write(n, "(I0)") len(expected)
       if (actual == expected .and. len(actual) == len(expected)) then
-        print "(A34, A" // n // ")", char(10) // "<PASSED::>Test Passed - Value == ", expected
+        if (len(expected) == 0) then
+          print "(A50)", char(10) // "<PASSED::>Test Passed - Value was an empty string"
+        else
+          print "(A34, A" // n // ")", char(10) // "<PASSED::>Test Passed - Value == ", expected
+        end if
       else
         write(m, "(I0)") len(actual)
         write(o, "(I0)") len(msg)
-        print "(A11, A" // o // ", A13, A" // n // ", A15, A" // m // ")", &
-        char(10) // &
-        "<FAILED::>", msg, " - Expected: ", expected, ", instead got: ", actual
+        if (len(actual) == 0) then
+          print "(A11, A" // o // ", A13, A" // n // ", A29)", char(10) // "<FAILED::>", msg, &
+          " - Expected: ", expected, ", instead got an empty string"
+        else if (len(expected) == 0) then
+          print "(A11, A" // o // ", A42, A" // m // ")", char(10) // "<FAILED::>", msg, &
+          " - Expected an empty string, instead got: ", actual
+        else
+          print "(A11, A" // o // ", A13, A" // n // ", A15, A" // m // ")", &
+          char(10) // "<FAILED::>", msg, " - Expected: ", expected, ", instead got: ", actual
+        end if
       end if
     end subroutine assertStrEqWithMsg
     subroutine assertInt32NEq(unexpected, actual)
@@ -314,10 +335,18 @@ module CW2
       character(len=100) :: n
       write(n, "(I0)") len(unexpected)
       if (actual /= unexpected .or. len(actual) /= len(unexpected)) then
-        print "(A34, A" // n // ")", char(10) // "<PASSED::>Test Passed - Value /= ", unexpected
+        if (len(unexpected) == 0) then
+          print "(A53)", char(10) // "<PASSED::>Test Passed - Value is not an empty string"
+        else
+          print "(A34, A" // n // ")", char(10) // "<PASSED::>Test Passed - Value /= ", unexpected
+        end if
       else
-        print "(A41, A" // n // ")", char(10) // &
-        "<FAILED::>Expected result to not equal: ", unexpected
+        if (len(unexpected) == 0) then
+          print "(A55)", char(10) // "<FAILED::>Expected result to not equal an empty string"
+        else
+          print "(A41, A" // n // ")", char(10) // &
+          "<FAILED::>Expected result to not equal: ", unexpected
+        end if
       end if
     end subroutine assertStrNEq
     subroutine assertStrNEqWithMsg(unexpected, actual, msg)
@@ -326,11 +355,20 @@ module CW2
       character(len=100) :: n, o
       write(n, "(I0)") len(unexpected)
       if (actual /= unexpected .or. len(actual) /= len(unexpected)) then
-        print "(A34, A" // n // ")", char(10) // "<PASSED::>Test Passed - Value /= ", unexpected
+        if (len(unexpected) == 0) then
+          print "(A53)", char(10) // "<PASSED::>Test Passed - Value is not an empty string"
+        else
+          print "(A34, A" // n // ")", char(10) // "<PASSED::>Test Passed - Value /= ", unexpected
+        end if
       else
         write(o, "(I0)") len(msg)
-        print "(A11, A" // o // ", A33, A" // n // ")", char(10) // &
-        "<FAILED::>", msg, " - Expected result to not equal: ", unexpected
+        if (len(unexpected) == 0) then
+          print "(A11, A" // o // ", A47)", char(10) // "<FAILED::>", msg, &
+          " - Expected result to not equal an empty string"
+        else
+          print "(A11, A" // o // ", A33, A" // n // ")", char(10) // &
+          "<FAILED::>", msg, " - Expected result to not equal: ", unexpected
+        end if
       end if
     end subroutine assertStrNEqWithMsg
     subroutine floatAssert(expected, actual, epsilon)

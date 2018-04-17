@@ -135,5 +135,15 @@ describe('GNU Fortran', function () {
         done();
       });
     });
+    describe('Bug Fixes', function () {
+      it('assert(Not)Equals subroutine should properly handle empty strings in either the (un)expected or actual argument (or both) and therefore resolve Codewars/codewars-runner-cli#590', function (done) {
+        child_process.exec('gfortran -c frameworks/fortran/cw-2.f95; gfortran examples/testIntegration/bug_fixes/issue590.f95 cw-2.o; ./a.out', function (error, stdout, stderr) {
+          expect(stderr).to.equal("");
+          expect(stdout).to.equal("\n<PASSED::>Test Passed - Value was an empty string\n\n<FAILED::>Expected: expected string, instead got an empty string\n\n<FAILED::>Expected an empty string, instead got: actual string\n\n<PASSED::>Test Passed - Value was an empty string\n\n<FAILED::>Returned string should equal expected string - Expected: expected string, instead got an empty string\n\n<FAILED::>Returned string should be empty - Expected an empty string, instead got: actual string\n" +
+          "\n<FAILED::>Expected result to not equal an empty string\n\n<PASSED::>Test Passed - Value /= unexpected string\n\n<PASSED::>Test Passed - Value is not an empty string\n\n<FAILED::>Returned string should NOT be empty - Expected result to not equal an empty string\n\n<PASSED::>Test Passed - Value /= unexpected string\n\n<PASSED::>Test Passed - Value is not an empty string\n");
+          done();
+        });
+      });
+    });
   });
 });
